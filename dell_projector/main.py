@@ -36,7 +36,7 @@ class Projector:
             session.get(base_url, timeout=TIMEOUT)
 
             # call the api
-            logger.error("Calling home page")
+            logger.debug("Calling home page")
             response = session.get(request_url, timeout=TIMEOUT)
             return response
         except Exception:
@@ -45,7 +45,6 @@ class Projector:
 
     def __callProjectorSocket(self, data):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        logger.error(bytes(data))
         try:
             s.connect((self._host, CONTROL_PORT))
             s.send(bytes(data))
@@ -76,9 +75,9 @@ class Projector:
         }
 
     def turnOn(self):
-        logger.info("Turning on projector")
+        logger.debug("Turning on projector")
         self.__callProjectorSocket(COMANDS["on"])
 
     def turnOff(self):
-        logger.info("Turning off projector")
+        logger.debug("Turning off projector")
         self.__callProjectorSocket(COMANDS["off"])
